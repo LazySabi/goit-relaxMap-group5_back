@@ -16,22 +16,16 @@ import locationsRouter from './routes/locationsRouter.js';
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Middleware
-
 app.use(express.json());
 app.use(cors());
 app.use(logger);
 app.use(cookieParser());
-
-// Routes
 
 app.use('/api/auth', authRouter);
 app.use('/api/categories', categoriesRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/feedbacks', feedbacksRouter);
 app.use('/api/locations', locationsRouter);
-
-// Error handlers
 
 app.use(notFoundHandler);
 app.use(errors());
