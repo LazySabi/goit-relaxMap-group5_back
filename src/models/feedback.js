@@ -1,6 +1,7 @@
 import { Schema, model } from 'mongoose';
 
-const FeedbackSchema = new Schema({
+const FeedbackSchema = new Schema(
+  {
     locationId: {
       type: Schema.Types.ObjectId,
       ref: 'location',
@@ -24,7 +25,7 @@ const FeedbackSchema = new Schema({
   {
     timestamps: true,
     versionKey: false,
-},
+  },
 );
 
 export const FeedbackModel = model('feedback', FeedbackSchema);
