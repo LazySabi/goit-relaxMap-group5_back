@@ -4,6 +4,8 @@ import { createFeedbackSchema } from '../validations/feedbacks/createFeedbackSch
 import { getFeedbackSchema } from '../validations/feedbacks/getFeedbackSchema.js';
 const feedbacksRouter = Router();
 
+feedbacksRouter.post('/', //authenticate,
+createFeedbackSchema, ctrl.createFeedback);
 feedbacksRouter.post(
   '/', //authenticate,
   createFeedbackSchema,
