@@ -1,7 +1,12 @@
 import { Router } from 'express';
 import { feedbacksControllers as ctrl } from '../controllers/index.js';
-import { createFeedbackSchema } from '../validations/feedbacks/createFeedbackSchema.js';
 import { getFeedbackSchema } from '../validations/feedbacks/getFeedbackSchema.js';
+import { authenticate } from '../middleware/authenticate.js';
+
+const feedbacksRouter = Router();
+
+feedbacksRouter.post('/', authenticate, createFeedbackSchema, ctrl.createFeedback);
+
 const feedbacksRouter = Router();
 
 feedbacksRouter.post(
