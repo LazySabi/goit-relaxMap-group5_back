@@ -1,25 +1,25 @@
 import { Schema, model } from 'mongoose';
 
 const FeedbackSchema = new Schema(
-  {
-    locationId: {
-      type: Schema.Types.ObjectId,
-      ref: 'location',
-      required: true,
-    },
-    userName: {
+  {  userName: {
       type: String,
       required: true,
       trim: true,
+      minlength: 2,
+      maxlength: 32,
     },
     rate: {
       type: Number,
       required: true,
+      min: 1,
+      max: 5,
     },
     description: {
       type: String,
       required: true,
       trim: true,
+      minlength: 1,
+      maxlength: 200,
     },
   },
   {
