@@ -7,11 +7,11 @@ export const getFeedbacks = async (req, res) => {
   const skip = (page - 1) * limit;
 
   const [feedbacks, total] = await Promise.all([
-    FeedbackModel.find({ locationId })
+    FeedbackModel.find({ filter })
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(Number(limit)),
-    FeedbackModel.countDocuments({ locationId }),
+    FeedbackModel.countDocuments({ filter }),
   ]);
 
   res.status(200).json({
