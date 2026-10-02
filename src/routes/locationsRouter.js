@@ -22,7 +22,7 @@ locationsRouter.post(
   ctrl.createLocation,
 );
 
-locationsRouter.get('/:locationId', ctrl.getLocationById);
+locationsRouter.get('/:locationId',locationIdSchema, ctrl.getLocationById);
 
 locationsRouter.patch(
   '/:locationId',

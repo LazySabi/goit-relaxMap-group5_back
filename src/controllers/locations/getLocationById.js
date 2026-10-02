@@ -5,7 +5,7 @@ export const getLocationById = async (req, res, next) => {
   try {
     const { locationId } = req.params;
 
-    const location = await LocationModel.findById(locationId).populate('feedbacksId');
+    const location = await LocationModel.findById(locationId);
 
     if (!location) {
       throw createHttpError(404, 'Location not found');
