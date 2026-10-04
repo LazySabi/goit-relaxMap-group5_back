@@ -3,9 +3,9 @@ import { LocationModel } from '../../models/location.js';
 const escapeRegex = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
 const SORTS = {
-  popular: { rate: -1 },
-  rating: { rate: -1 },
-  newest: { createdAt: -1 },
+  popular: { rate: -1, _id: 1 },
+  rating: { rate: -1, _id: 1 },
+  newest: { createdAt: -1, _id: -1 },
 };
 
 export const getLocations = async (req, res, next) => {
