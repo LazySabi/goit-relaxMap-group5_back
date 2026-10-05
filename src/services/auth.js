@@ -21,6 +21,11 @@ export const refreshCookieOptions = {
 };
 
 export const setRefreshCookie = (res, session) => {
+  res.cookie('accessToken', session.accessToken, {
+    ...refreshCookieOptions,
+    expires: session.accessTokenValidUntil,
+  });
+
   res.cookie('refreshToken', session.refreshToken, {
     ...refreshCookieOptions,
     expires: session.refreshTokenValidUntil,
