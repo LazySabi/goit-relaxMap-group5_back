@@ -17,11 +17,12 @@ export const getUserById = async (req, res, next) => {
     });
 
     res.status(200).json({
-      id: user._id,
-      name: user.name,
-      avatar: user.avatar,
-      articlesAmount,
-    });
+  id: user._id,
+  name: user.name,
+  avatarUrl: user.avatarUrl,
+  createdAt: user.createdAt,
+  articlesAmount,
+});
   } catch (error) {
     next(error);
   }
