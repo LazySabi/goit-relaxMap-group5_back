@@ -5,11 +5,12 @@ import { UserModel } from '../models/user.js';
 export const authenticate = async (req, res, next) => {
   const header = req.get('Authorization');
 
-  if (!header?.startsWith('Bearer ')) {
+  const accessToken = header?.startsWith('Bearer ')
+    ? header.slice(7)
+    : req.cookies?.accessToken;
+  if (!accessToken) {
     throw createHttpError(401, 'Please provide Authorization header');
   }
-
-  const accessToken = header.slice(7);
 
   const session = await SessionModel.findOne({ accessToken });
   if (!session) throw createHttpError(401, 'Session not found');

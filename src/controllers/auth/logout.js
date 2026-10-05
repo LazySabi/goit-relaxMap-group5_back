@@ -7,7 +7,7 @@ export const logout = async (req, res) => {
   if (refreshToken) {
     await SessionModel.findOneAndDelete({ refreshToken });
   }
-
+  res.clearCookie('accessToken', refreshCookieOptions);
   res.clearCookie('refreshToken', refreshCookieOptions);
   res.sendStatus(204);
 };
