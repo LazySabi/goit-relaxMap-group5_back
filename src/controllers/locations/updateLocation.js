@@ -33,7 +33,7 @@ export const updateLocation = async (req, res, next) => {
       locationId,
       updateData,
       {
-        new: true,
+        returnDocument: 'after',
         runValidators: true,
       },
     );
