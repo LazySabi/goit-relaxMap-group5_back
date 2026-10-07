@@ -11,20 +11,17 @@ export const getFeedbacks = async (req, res) => {
 
   if (locationId) {
     const location = await LocationModel.findById(locationId);
-
     if (!location) {
       return res.status(404).json({
         status: 404,
         message: 'Location not found',
       });
     }
-
-    filter = {
-      _id: { $in: location.feedbacksId },
-    };
+    filter = { _id: { $in: location.feedbacksId } };
   }
 
   const skip = (currentPage - 1) * currentLimit;
+
   const [feedbacks, total] = await Promise.all([
     FeedbackModel.find(filter)
       .sort({ createdAt: -1 })
@@ -33,9 +30,24 @@ export const getFeedbacks = async (req, res) => {
     FeedbackModel.countDocuments(filter),
   ]);
 
+  const feedbacksWithLocation = await Promise.all(
+    feedbacks.map(async (feedback) => {
+      const location = await LocationModel.findOne({
+        feedbacksId: feedback._id,
+      }).select('locationType name');
+
+      return {
+        ...feedback.toObject(),
+        locationType: location?.locationType ?? null,
+        locationName: location?.name ?? null,
+      };
+    }),
+  );
+
   const totalPages = total === 0 ? 1 : Math.ceil(total / currentLimit);
+
   res.status(200).json({
-    feedbacks,
+    feedbacks: feedbacksWithLocation,
     total,
     page: currentPage,
     limit: currentLimit,
